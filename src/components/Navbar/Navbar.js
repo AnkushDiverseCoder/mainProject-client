@@ -1,35 +1,36 @@
 import React, { useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
-
-// Check Login
-const navigate = useNavigate();
-const [isAdmin, setIsAdmin] = React.useState(false)
+  // Check Login
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = React.useState(false);
+  const [companyName, setCompanyName] = React.useState("");
   useEffect(() => {
     const verifyUser = async () => {
       const { data } = await newRequest.post("/auth/verify", {
         token: Cookies.get("token"),
       });
-      setIsAdmin(data.isAdmin);
       if (data.status === "false") {
         navigate("/login");
+      } else {
+        setIsAdmin(data.isAdmin);
       }
+      setCompanyName(Cookies.get("companyName"));
     };
-    
+
     verifyUser();
   }, [navigate]);
-  
-const handleLogout = async(e) => {
-   e.preventDefault();
-   await Cookies.remove("token");
-   navigate("/login")
-}
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    Cookies.remove("token").then(navigate("/login"));
+  };
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-[#ABF1BC] text-black">
       <style
         dangerouslySetInnerHTML={{
           __html:
@@ -37,47 +38,62 @@ const handleLogout = async(e) => {
         }}
       />
       <nav className="flex px-4 border-b md:shadow-lg items-center relative">
-        <div className="text-lg font-bold md:py-0 py-4" onClick={()=>navigate("/")}>Logo</div>
+        
+        <div
+          className="text-lg font-bold md:py-0 py-4"
+          onClick={() => navigate("/")}
+        >
+          {companyName ? companyName : "Logo"}
+        </div>
+        
         <ul className="md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0">
-        {/* First  */}
-          {isAdmin && <li className="relative parent">
-            <p
-              href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
-            >
-            {/* Heading */}
-              <span>Company</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4 fill-current pt-1"
-                viewBox="0 0 24 24"
+          {/* First  */}
+          {isAdmin && (
+            <li className="relative parent">
+              <p
+                href="#"
+                className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
               >
-                <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-              </svg>
-            </p>
-            
-            {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
-              <li>
-                <Link to="/company/add" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
-                  Add Company
-                </Link>
-              </li>
-              <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
-                  Modify Company
-                </Link>
-              </li>
-            </ul>
-          </li>}
-          
+                {/* Heading */}
+                <span>Company</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4 fill-current pt-1"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
+                </svg>
+              </p>
+
+              {/* Elements */}
+              <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg ">
+                <li>
+                  <Link
+                    to="/company/add"
+                    className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black rounded-lg"
+                  >
+                    Add Company
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/company/modify"
+                    className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                  >
+                    Modify Company
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+
           {/* Second  */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
+              {/* Heading */}
               <span>Masters</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,30 +103,35 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="/employee/add"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Add Employee
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Modify Employee
                 </Link>
               </li>
-
             </ul>
           </li>
-          
+
           {/* Third */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
+              {/* Heading */}
               <span>Service</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,35 +141,43 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web development
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web Design
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Machine Learning
                 </Link>
               </li>
             </ul>
           </li>
-          
-          
+
           {/* Fourth */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
+              {/* Heading */}
               <span>Service</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -158,36 +187,44 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web development
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web Design
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Machine Learning
                 </Link>
               </li>
             </ul>
           </li>
-          
-          
+
           {/* Fifth */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
-              <span>Service</span>
+              {/* Heading */}
+              <span>Reports</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 fill-current pt-1"
@@ -196,35 +233,37 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
+              
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
-                  Web development
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Company Report
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
-                  Web Design
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Employee Report
                 </Link>
               </li>
-              <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
-                  Machine Learning
-                </Link>
-              </li>
+              
             </ul>
           </li>
-          
-          
+
           {/* Sixth */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
+              {/* Heading */}
               <span>Service</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -234,35 +273,43 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web development
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web Design
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Machine Learning
                 </Link>
               </li>
             </ul>
           </li>
-          
-          
+
           {/* Seventh */}
           <li className="relative parent">
             <p
               href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-900 hover:text-white space-x-2"
+              className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
-            {/* Heading */}
+              {/* Heading */}
               <span>Service</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -272,34 +319,44 @@ const handleLogout = async(e) => {
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
             </p>
-            
+
             {/* Elements */}
-            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-gray-900 md:shadow-lg md:rounded-b ">
+            <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#AEE7F8] md:shadow-lg md:rounded-b rounded-lg">
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web development
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Web Design
                 </Link>
               </li>
               <li>
-                <Link to="#" className="flex px-4 py-3 hover:bg-gray-900 hover:text-white">
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
                   Machine Learning
                 </Link>
               </li>
             </ul>
           </li>
-          
+
           <li onClick={handleLogout}>
-                <p href="#" class="flex md:inline-flex p-4 items-center hover:bg-gray-900">
-                    <span className="font-bold">Logout</span>
-                </p>
+            <p
+              href="#"
+              class="flex md:inline-flex p-4 items-center hover:bg-[#8CE68C]"
+            >
+              <span className="font-bold">Logout</span>
+            </p>
           </li>
-          
-          
         </ul>
         <div className="ml-auto md:hidden text-gray-500 cursor-pointer">
           <svg

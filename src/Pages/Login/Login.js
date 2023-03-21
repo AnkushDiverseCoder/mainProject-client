@@ -12,16 +12,31 @@ const Login = () => {
 
   // Navigation
   const navigate = useNavigate();
+  
+  React.useEffect(() => {
+    const verifyUser = async () => {
+      const { data } = await newRequest.post("/auth/verify", {
+        token: Cookies.get("token"),
+      });
+
+      if (data.status === "true") {
+         navigate("/")
+      }
+    };
+    verifyUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   //  Functions
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await newRequest.post("/auth/login", { email, password });
-      Cookies.set("token", res.data.token);
-      navigate("/");
+      await newRequest
+        .post("/auth/login", { email, password })
+        .then((res) =>
+          Cookies.set("token", res.data.token).then(navigate("/"))
+        );
     } catch (err) {
-      console.error(err.response.data);
       setError(err.response.data);
     }
   };

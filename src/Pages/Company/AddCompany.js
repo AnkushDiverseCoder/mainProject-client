@@ -3,7 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { companyInputs } from "../../components/Utility/InputElements/CompanyInput";
 import FormInput from "../../components/Utility/FormInput";
-import { addCompanyApi, nullValues } from "./ApiCalls";
+import { nullValues } from "./ApiCalls";
+import newRequest from "../../utils/newRequest";
 
 const AddCompany = () => {
   const [values, setValues] = React.useState({ ...nullValues });
@@ -15,14 +16,15 @@ const AddCompany = () => {
     e.preventDefault();
 
     // Company Add Api Callback
-    const res = addCompanyApi();
-
+    const res = await newRequest.post("/company/add", {
+      ...values
+    });
     if (res.data.status === false) {
       toast.error(res.data.msg, toastOptions);
     }
     if (res.data.status === true) {
       toast.success(res.data.msg, toastOptions);
-      setValues(...nullValues);
+      setValues({...nullValues});
     }
   };
 
