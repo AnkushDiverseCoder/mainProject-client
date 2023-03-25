@@ -26,7 +26,8 @@ const Navbar = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    Cookies.remove("token").then(navigate("/login"));
+    Cookies.remove('token')
+    (navigate("/login"));
   };
 
   return (
@@ -132,7 +133,7 @@ const Navbar = () => {
               className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
               {/* Heading */}
-              <span>Service</span>
+              <span>Attendance</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 fill-current pt-1"
@@ -149,7 +150,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web development
+                  Daily Attendance Entry
                 </Link>
               </li>
               <li>
@@ -157,7 +158,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web Design
+                  Weekly Attendance Entry
                 </Link>
               </li>
               <li>
@@ -165,7 +166,15 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Machine Learning
+                  Monthly Attendance Entry
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Upload Attendance Entry
                 </Link>
               </li>
             </ul>
@@ -178,7 +187,7 @@ const Navbar = () => {
               className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
               {/* Heading */}
-              <span>Service</span>
+              <span>Payroll</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 fill-current pt-1"
@@ -195,7 +204,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web development
+                  Monthly Salary Process
                 </Link>
               </li>
               <li>
@@ -203,7 +212,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web Design
+                  View / Modify / Delete Salaries 
                 </Link>
               </li>
               <li>
@@ -211,7 +220,31 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Machine Learning
+                  Add OverTime
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Advance / Stop Payment
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Arrear Payments
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Employees Loans Details
                 </Link>
               </li>
             </ul>
@@ -247,10 +280,122 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/report/employeeReport"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
                   Employee Report
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Attendance Report
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Salary Statement Report 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Payslip
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate OverTime Report
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Advance Stop Payment Report
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Arrear Reports 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Loans Reports 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Monthly Text File For Epf 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Monthly Template File For ESIC
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Monthly Bank Advice
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  EPF All Reports
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  ESIC All Reports
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Labour Act All Reports
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/report/employeeReport"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Employees All Reports
                 </Link>
               </li>
               
@@ -264,7 +409,7 @@ const Navbar = () => {
               className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
               {/* Heading */}
-              <span>Service</span>
+              <span>Utility</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 fill-current pt-1"
@@ -281,7 +426,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web development
+                  Import / Export Employee Data
                 </Link>
               </li>
               <li>
@@ -289,7 +434,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web Design
+                  Import / Export Attendance Data
                 </Link>
               </li>
               <li>
@@ -297,9 +442,74 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Machine Learning
+                  Import / Export Monthly Salary
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Import / Export Monthly OverTime
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Cheque Print
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Monthly Professional Invoice / Details 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Validate the PAN / TAN
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Bank / IFSC Search
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Calculator 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  PDF Convertor 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Setting / Printer Setting 
+                </Link>
+              </li>
+              
             </ul>
           </li>
 
@@ -310,7 +520,7 @@ const Navbar = () => {
               className="flex justify-between md:inline-flex p-4 items-center hover:bg-[#8CE68C] hover:text-black space-x-2"
             >
               {/* Heading */}
-              <span>Service</span>
+              <span> Help / Misc.'s </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 fill-current pt-1"
@@ -327,7 +537,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web development
+                  Help Functions
                 </Link>
               </li>
               <li>
@@ -335,7 +545,7 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Web Design
+                  Backup / Restore the Data
                 </Link>
               </li>
               <li>
@@ -343,9 +553,90 @@ const Navbar = () => {
                   to="#"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
-                  Machine Learning
+                  Bulk SMS / E-Mail
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Staff User ID and Password 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Generate Customer User ID and Password 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Reset The Password Staff and Customer  
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Lock / Unlock the Month  
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Salary Certificate   
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Monthly Expenditure
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Monthly Cash Flow 
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Download All Report in a Folder
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Add / View Request of Staff
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="#"
+                  className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
+                >
+                  Add / View Request of Customer
+                </Link>
+              </li>
+              
             </ul>
           </li>
 

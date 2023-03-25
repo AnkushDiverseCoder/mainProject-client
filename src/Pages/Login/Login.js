@@ -3,39 +3,29 @@ import trees from "../../assets/trees.jpg";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import Cookies from "js-cookie";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const Login = () => {
   // State
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   // Navigation
   const navigate = useNavigate();
-  
-  React.useEffect(() => {
-    const verifyUser = async () => {
-      const { data } = await newRequest.post("/auth/verify", {
-        token: Cookies.get("token"),
-      });
-
-      if (data.status === "true") {
-         navigate("/")
-      }
-    };
-    verifyUser();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
 
   //  Functions
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await newRequest
         .post("/auth/login", { email, password })
-        .then((res) =>
-          Cookies.set("token", res.data.token).then(navigate("/"))
-        );
+        .then((res) => Cookies.set("token", res.data.token));
+      setLoading(false);
+      navigate("/");
     } catch (err) {
       setError(err.response.data);
     }
@@ -70,9 +60,15 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button className="w-full py-2 my-4 bg-green-600 hover:bg-green-500">
-              Sign In
-            </button>
+            {loading ? (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <button className="w-full py-2 my-4 bg-green-600 hover:bg-green-500">
+                Sign In
+              </button>
+            )}
             {error && error}
           </form>
         </div>

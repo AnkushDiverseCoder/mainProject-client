@@ -5,10 +5,6 @@ import {
 //  Routes 
 import Root from "./Root";
 
-
-
-
-
 function App() {
 
   return (
