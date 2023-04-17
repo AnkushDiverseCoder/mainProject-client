@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import newRequest from "../../utils/newRequest";
 import { modifyNullValues } from "./ApiCalls";
 import moment from "moment";
+import { Box, CircularProgress } from "@mui/material";
 
 const ModifyAndDelete = () => {
   const [companyName, setCompanyName] = React.useState(null);
@@ -12,6 +13,7 @@ const ModifyAndDelete = () => {
   const [companyId, setCompanyId] = React.useState(null);
   const [companyNameInput, setCompanyNameInput] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const [values, setValues] = React.useState({
     ...modifyNullValues,
@@ -40,6 +42,7 @@ const ModifyAndDelete = () => {
   //  get Submit Functions
   const handleGetData = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const companyId = await newRequest.post("/company/modifyData", {
       companyName: companyNameInput,
       workPlaceName: values.workPlaceName,
@@ -59,7 +62,9 @@ const ModifyAndDelete = () => {
       tanNumber: companyId?.data?.msg?.tanNumber,
       workPlaceName: companyId?.data?.msg?.workPlaceName,
       serviceProvide: companyId?.data?.msg?.serviceProvide,
-      dateOfCommencement: moment(companyId?.data?.msg?.dateOfCommencement).format("YYYY-MM-DD"),
+      dateOfCommencement: moment(
+        companyId?.data?.msg?.dateOfCommencement
+      ).format("YYYY-MM-DD"),
       professionalFees: companyId?.data?.msg?.professionalFees,
       licenceNumber: companyId?.data?.msg?.licenceNumber,
       officeName: companyId?.data?.msg?.officeName,
@@ -69,18 +74,22 @@ const ModifyAndDelete = () => {
     });
     setCompanyId(companyId?.data?.msg?._id);
     setOpen(false);
+    setLoading(false)
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const { data } = await newRequest.put(`/company/update/${companyId}`, {
       ...values,
     });
     if (data.status === false) {
       toast.error(data.msg, toastOptions);
+      setLoading(false)
     }
     if (data.status === true) {
       toast.success(data.msg, toastOptions);
+      setLoading(false)
       setValues({ ...modifyNullValues });
     }
   };
@@ -105,7 +114,7 @@ const ModifyAndDelete = () => {
               Form is mobile responsive. Give it a try.
             </p>
           </div>
-          <form >
+          <form>
             <div className="flex flex-wrap justify-between items-center">
               <div>
                 <div className="flex items-center">
@@ -175,12 +184,19 @@ const ModifyAndDelete = () => {
                       </select>
                     </div>
                   )}
-                  <button
-                    onClick={handleGetData}
-                    className="inline-flex mt-10 mb-2 items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-                  >
-                    Submit
-                  </button>
+
+                  {loading ? (
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    <button
+                      onClick={handleGetData}
+                      className="inline-flex mt-10 mb-2 items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                    >
+                      Submit
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -212,13 +228,21 @@ const ModifyAndDelete = () => {
                 <option value="Without Register">Without Register</option>
               </select>
             </div>
-            <button
+            
+            {loading ? (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <button
               type="submit"
               className="bg-red-300 p-4 rounded-lg font-bold"
               onClick={handleSubmit}
             >
               Save
             </button>
+            )}
+            
           </form>
         </div>
       </section>

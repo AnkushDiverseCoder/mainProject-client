@@ -11,7 +11,7 @@ import {
 import FormInput from "../../components/Utility/FormInput";
 import Cookies from "js-cookie";
 
-const AdditionalDetails = ({ firstInputValue , familyParticular }) => {
+const AdditionalDetails = ({ firstInputValue, familyParticular }) => {
   const [values, setValues] = React.useState({
     ...additionalNullValues,
   });
@@ -46,30 +46,32 @@ const AdditionalDetails = ({ firstInputValue , familyParticular }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     // Company Add Api Callback
-     const res = await newRequest.post("/employee/add", {
-     companyName:Cookies.get("companyName"),
-     workPlaceName:Cookies.get("workPlaceName"),
+    // Company Add Api Callback
+    const res = await newRequest.post("/employee/add", {
+      companyName: Cookies.get("companyName"),
+      workPlaceName: Cookies.get("workPlaceName"),
       ...firstInputValue,
       familyParticular,
-      additionalDetails: {
-        kycDetails:{...values.kycDetails},
-        financialDetails:{...values.financialDetails,wagesRate},
-        salaryDetails:{...values.salaryDetails},
-      },
+      ...values.kycDetails,
+      ...values.financialDetails,
+      wagesRate,
+      ...values.salaryDetails,
     });
     if (res.data.status === false) {
       toast.error(res.data.msg, toastOptions);
     }
     if (res.data.status === true) {
       toast.success(res.data.msg, toastOptions);
-      setValues({...additionalNullValues,firstInputValue:{...nullValues}});
+      setValues({
+        ...additionalNullValues,
+        firstInputValue: { ...nullValues },
+      });
     }
   };
-  
+
   const handleCancel = async (e) => {
     e.preventDefault();
-    setValues(...additionalNullValues)
+    setValues(...additionalNullValues);
   };
 
   const toastOptions = {
@@ -191,10 +193,13 @@ const AdditionalDetails = ({ firstInputValue , familyParticular }) => {
                           >
                             <option value="">Select Head</option>
                             <option value="Daily Wages">Daily Wages</option>
-                            <option value="Monthly Salary"> Monthly Salary </option>
+                            <option value="Monthly Salary">
+                              {" "}
+                              Monthly Salary{" "}
+                            </option>
                           </select>
                         </div>
-                        
+
                         <div className="mb-3">
                           <input
                             type="number"

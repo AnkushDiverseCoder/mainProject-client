@@ -12,6 +12,7 @@ import ModifyAndDelete from "./Pages/Company/ModifyAndDelete";
 import AddEmployee from "./Pages/Master/AddEmployee";
 import AdditionalDetails from "./Pages/Master/AdditionalDetails";
 import EmployeeReport from "./Pages/report/EmployeeReport";
+import CompanyReport from "./Pages/report/CompanyReport";
 
 const Root = () => {
   // const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Root = () => {
           element={<AdditionalDetails />}
         />
         <Route path="/report/employeeReport" element={<EmployeeReport />} />
+        <Route path="/report/companyReport" element={<CompanyReport />} />
       </Routes>
       <Footer />
     </div>

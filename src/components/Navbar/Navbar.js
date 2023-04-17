@@ -272,7 +272,7 @@ const Navbar = () => {
               
               <li>
                 <Link
-                  to="#"
+                  to="/report/companyReport"
                   className="flex px-4 py-3 hover:bg-[#87CDF6] hover:text-black"
                 >
                   Company Report

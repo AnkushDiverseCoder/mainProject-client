@@ -9,10 +9,10 @@ import {
   } from '@mui/material'
   import moment from 'moment'
 
-const EmployeeReportTable = ({ data }) => {
+const CompanyReportTable = ({data}) => {
   return data && (
-    <TableContainer className='max-w-[80%] mb-10 mx-auto' component={Paper}>
-    <Table stickyHeader aria-label='simple table' className='shadow-lg'>
+    <TableContainer className='h-screen container ' component={Paper}>
+    <Table stickyHeader aria-label='simple table'>
       <TableHead>
         <TableRow>
           <TableCell>uanNumber</TableCell>
@@ -56,7 +56,7 @@ const EmployeeReportTable = ({ data }) => {
       </TableBody>
     </Table>
   </TableContainer>
-  );
-};
+  )
+}
 
-export default EmployeeReportTable;
+export default CompanyReportTable
